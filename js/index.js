@@ -6,16 +6,35 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 25,
 }).addTo(map);
 
+// Initialise the FeatureGroup to store editable layers
+var drawnItems = new L.FeatureGroup();
+map.addLayer(drawnItems)
 
+// Initialise the draw control and pass it the FeatureGroup of editable layers
+var drawControl = new L.Control.Draw({
+    edit: {
+        featureGroup: drawnItems
+    }
+});
+map.addControl(drawControl);
+
+map.on('draw:created', function (e) {
+            var type = e.layerType,
+                layer = e.layer;
+            drawnItems.addLayer(layer);
+        });
+
+/*
 L.control.mousePosition().addTo(map);
 
 function onMapClick(e) {
     alert("You clicked the map at " + e.latlng);
 }
-
+*/
 //    Temp blocks to be removed
 
 // Add click listener to map
+/*
 map.on('click', onMapClick);
 
 var popup = L.popup();
@@ -27,7 +46,7 @@ function onMapClick(e) {
 }
 
 map.on('click', onMapClick);
-
+*/
 // End of temp blocks
 
 var Math_Building = {
@@ -70,7 +89,7 @@ levelControl.addTo(map);
 //L.geoJson(Math_Building).addTo(map);
 */
 
-var temp = 'css/images/temp.png', imageBounds = [[37.953699, -91.77432], [37.953398, -91.77390]]; // Math Building G
+var temp = 'css/images/temp.PNG', imageBounds = [[37.953699, -91.77432], [37.953398, -91.77390]]; // Math Building G
 
 var temp_1 = L.imageOverlay(temp, imageBounds);
 
