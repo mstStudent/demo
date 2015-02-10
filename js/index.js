@@ -1,11 +1,12 @@
 var map = L.map('map').setView([37.95451, -91.77386], 17);
 
+/*
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery   <a href="http://cloudmade.com">CloudMade</a>',
     subdomain: ['a','b','c'],
     maxZoom: 25,
 }).addTo(map);
-
+*/
 // Initialise the FeatureGroup to store editable layers
 var drawnItems = new L.FeatureGroup();
 map.addLayer(drawnItems)
@@ -24,17 +25,17 @@ map.on('draw:created', function (e) {
             drawnItems.addLayer(layer);
         });
 
-/*
-L.control.mousePosition().addTo(map);
 
+L.control.mousePosition().addTo(map);
+/*
 function onMapClick(e) {
     alert("You clicked the map at " + e.latlng);
 }
-*/
+
 //    Temp blocks to be removed
 
 // Add click listener to map
-/*
+
 map.on('click', onMapClick);
 
 var popup = L.popup();
@@ -96,3 +97,27 @@ var temp_1 = L.imageOverlay(temp, imageBounds);
 temp_1.addTo(map);
 
 temp_1.setOpacity(.8);
+
+$("#print").click(function(){
+	$.each(drawnItems._layers,function(index,value){
+		var popup = L.popup();
+		$(value).click(function(){
+			var lat = ( (this._latlngs[0]['lat'] + this._latlngs[2]['lat']) / 2 );
+			var lng = ( (this._latlngs[0]['lng'] + this._latlngs[2]['lng']) / 2 );
+			var content = "";
+			
+			this._latlngs.forEach(function(value){
+				content = content + value['lat']+' , ' + value['lng'] + '<br><br>';
+			});
+
+			var update = confirm("Update Room Number/name?");
+			if(update){
+				this.roomName = prompt("Name",'Room #');
+			}
+			
+			popup.setLatLng([lat,lng])
+			     .setContent(String(this.roomName)+'<br><br>'+content)
+			     .openOn(map);
+        	});
+	})
+});
