@@ -25,11 +25,37 @@ var drawControl = new L.Control.Draw({
 map.addControl(drawControl);
 
 map.on('draw:created', function (e) {
-            var type = e.layerType,
-                layer = e.layer;
-            drawnItems.addLayer(layer);
-        });
-
+	var popup = L.popup();
+	var type = e.layerType,
+		layer = e.layer;
+	drawnItems.addLayer(layer);
+	var content = "";
+	layer._latlngs.forEach(function(value){
+		content = content + value['lat']+' , ' + value['lng'] + '<br><br>';
+	});
+	var update = confirm("Already Know the Room Number/name?");
+		if(update){
+			layer.roomName = prompt("Name",'Room #');
+		}
+	popup.setContent(String(layer.roomName)+'<br>'+content)
+	
+	layer.bindPopup(popup).openPopup();
+	
+	layer.on('click',function(){
+		var popup = L.popup();
+		var content = "";
+		layer._latlngs.forEach(function(value){
+			content = content + value['lat']+' , ' + value['lng'] + '<br><br>';
+		});
+		var update = confirm("Update the Room Number/name?");
+			if(update){
+				layer.roomName = prompt("Name",'Room #');
+			}
+		popup.setContent(String(layer.roomName)+'<br>'+content)
+		
+		layer.bindPopup(popup).openPopup();
+	});
+});
 
 L.control.mousePosition().addTo(map);
 /*
@@ -54,37 +80,78 @@ function onMapClick(e) {
 map.on('click', onMapClick);
 */
 // End of temp blocks
-
 /*
-var temp = 'css/images/temp.PNG', imageBounds = [[37.953699, -91.77432], [37.953398, -91.77390]]; // Math Building G
+
+var temp_1 = L.icon({
+	iconUrl: 'css/images/Capture_4_test.PNG',
+//	iconSize: [24,24]
+});
+
+L.marker([37.953699, -91.77432], {icon:temp_1, draggable: true}).addTo(map);
+*/
+/*
+var temp = 'css/images/Capture_4_test.PNG', imageBounds = [[37.953699, -91.77432], [37.953398, -91.77390]]; // Math Building G
 
 var temp_1 = L.imageOverlay(temp, imageBounds);
 
 temp_1.addTo(map);
 
-temp_1.setOpacity(1);
+temp_1.setOpacity(.5);
+
 */
 
-$("#print").click(function(){
-	$.each(drawnItems._layers,function(index,value){
-		var popup = L.popup();
-		$(value).click(function(){
-			var lat = ( (this._latlngs[0]['lat'] + this._latlngs[2]['lat']) / 2 );
-			var lng = ( (this._latlngs[0]['lng'] + this._latlngs[2]['lng']) / 2 );
-			var content = "";
-			
-			this._latlngs.forEach(function(value){
-				content = content + value['lat']+' , ' + value['lng'] + '<br><br>';
-			});
+var queryURL = 'http://www.openstreetmap.org/api/0.6/map?bbox=-91.78163,37.94986606322165,-91.77086,37.96036'
 
-			var update = confirm("Update Room Number/name?");
-			if(update){
-				this.roomName = prompt("Name",'Room #');
-			}
-			
-			popup.setLatLng([lat,lng])
-			     .setContent(String(this.roomName)+'<br><br>'+content)
-			     .openOn(map);
-        	});
-	})
+$.get(queryURL, function(data){
+  var geoJSON = osmtogeojson(data, {
+  	polygonFeatures:{
+		buildingpart: true
+	  }
+  });/*
+  var indoorLayer = new L.Indoor(geoJSON, {
+                getLevel: function(feature) { 
+                    if (feature.properties.relations.length === 0)
+                        return null;
+
+                    return feature.properties.relations[0].reltags.level;
+                },
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup(JSON.stringify(feature.properties, null, 4));
+                },
+                style: function(feature) {
+                    var fill = 'white';
+
+                    if (feature.properties.tags.buildingpart === 'corridor') {
+                        fill = '#169EC6';
+                    } else if (feature.properties.tags.buildingpart === 'verticalpassage') {
+                        fill = '#0A485B';
+                    }
+
+                    return {
+                        fillColor: fill,
+                        weight: 1,
+                        color: '#666',
+                        fillOpacity: 1
+                    };
+                }
+            });
+
+            indoorLayer.setLevel("0");
+
+            indoorLayer.addTo(map);
+
+            var levelControl = new L.Control.Level({
+                level: "0",
+                levels: indoorLayer.getLevels()
+            });
+            levelControl.addEventListener("levelchange", indoorLayer.setLevel, indoorLayer);
+
+            levelControl.addTo(map);
+*/
+   L.geoJson(geoJSON).addTo(map);
+});
+
+
+$("#convert").click(function(){
+	console.log("click");
 });

@@ -20,7 +20,7 @@
 ]
         
 */
-
+/*
 function innerArea(coor,ty,name,purpose,lev){
 	 var section = {};
 	 section.geometry = {};
@@ -95,4 +95,4 @@ var levelControl = new L.Control.Level({
 
 levelControl.addEventListener("levelchange", indoorLayer.setLevel, indoorLayer);
 
-levelControl.addTo(map);
+levelControl.addTo(map);*/
