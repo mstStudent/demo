@@ -100,7 +100,9 @@ temp_1.setOpacity(.5);
 
 */
 
-var queryURL = 'http://www.openstreetmap.org/api/0.6/map?bbox=-91.78163,37.94986606322165,-91.77086,37.96036'
+//var queryURL = 'http://www.openstreetmap.org/api/0.6/map?bbox=-91.78163,37.94986606322165,-91.77086,37.96036'
+
+var queryURL = '/includes/map.xml'
 
 $.get(queryURL, function(data){
   var geoJSON = osmtogeojson(data, {
