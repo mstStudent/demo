@@ -750,8 +750,7 @@
  <node id="192278129" visible="true" version="3" changeset="29228816" timestamp="2015-03-03T18:28:49Z" user="Nathaniel Krofft" uid="2726079" lat="37.9587704" lon="-91.7805429"/>
  <node id="192278143" visible="true" version="3" changeset="29228816" timestamp="2015-03-03T18:28:49Z" user="Nathaniel Krofft" uid="2726079" lat="37.9596199" lon="-91.7790540"/>
  <node id="192278145" visible="true" version="3" changeset="29228816" timestamp="2015-03-03T18:28:49Z" user="Nathaniel Krofft" uid="2726079" lat="37.9599266" lon="-91.7790690"/>
- <node id="376721995" visible="true" version="4" changeset="29232064" timestamp="2015-03-03T21:22:07Z" user="Nathaniel Krofft" uid="2726079" lat="37.9534508" lon="-91.7740088">
-  <tag k="source:name" v="survey"/>
+ <node id="376721995" visible="true" version="4" changeset="29232064" timestamp="2015-03-03T21:22:07Z" user="Nathaniel Krofft" uid="2726079" lat="37.9534519" lon="-91.7740144">
  </node>
  <node id="358066120" visible="true" version="2" changeset="29232174" timestamp="2015-03-03T21:27:17Z" user="Nathaniel Krofft" uid="2726079" lat="37.9513003" lon="-91.7753931">
   <tag k="ele" v="347"/>
@@ -1309,15 +1308,6 @@
   <tag k="amenity" v="college"/>
  </node>
  <node id="3381876471" visible="true" version="1" changeset="29232174" timestamp="2015-03-03T21:27:16Z" user="Nathaniel Krofft" uid="2726079" lat="37.9534409" lon="-91.7755736">
-  <tag k="amenity" v="college"/>
- </node>
- <node id="3381876472" visible="true" version="1" changeset="29232174" timestamp="2015-03-03T21:27:16Z" user="Nathaniel Krofft" uid="2726079" lat="37.9527190" lon="-91.7756021">
-  <tag k="amenity" v="college"/>
- </node>
- <node id="3381876473" visible="true" version="1" changeset="29232174" timestamp="2015-03-03T21:27:16Z" user="Nathaniel Krofft" uid="2726079" lat="37.9530762" lon="-91.7731440">
-  <tag k="amenity" v="college"/>
- </node>
- <node id="3381876474" visible="true" version="1" changeset="29232174" timestamp="2015-03-03T21:27:16Z" user="Nathaniel Krofft" uid="2726079" lat="37.9528789" lon="-91.7740848">
   <tag k="amenity" v="college"/>
  </node>
  <node id="3381606237" visible="true" version="2" changeset="29232174" timestamp="2015-03-03T21:27:17Z" user="Nathaniel Krofft" uid="2726079" lat="37.9550925" lon="-91.7754013"/>
@@ -2910,7 +2900,6 @@
  <way id="331130119" visible="true" version="1" changeset="29232064" timestamp="2015-03-03T21:22:07Z" user="Nathaniel Krofft" uid="2726079">
   <nd ref="3381866628"/>
   <nd ref="3381866629"/>
-  <nd ref="376721995"/>
   <nd ref="2843285897"/>
   <tag k="highway" v="footway"/>
  </way>
